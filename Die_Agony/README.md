@@ -67,4 +67,4 @@ While this possibly could have worked, it was very hard to keep track of things,
 The final solution that I ended up on was much simpler than originally planned. We can just represent the dice as a 6-tuple for each side, and have a helper function that performs rotations in each of the four directions. That way we know the top value of the dice at any given time, and if the value is None / 0 - we can assign a new face value that satisfies the solution
 
 ## Concluding Notes
-Overall a very fun puzzle and I would highly recommend giving it a go if you want to get better versed in backtracking.
+Overall a very fun puzzle and I would highly recommend giving it a go if you want to get better versed in backtracking. I added some other stuff to mess around with the puzzle including `reverse_engineer.py` which allows you to build a valid board (naive) from a starting dice state. From this I stored a bunch of board states and solve times in a sqlite database.
