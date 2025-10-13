@@ -35,9 +35,7 @@ def create_table():
     return cur, conn
 
 
-def insert_benchmark(board_hash, solve_time, num_moves):
-    cur, conn = create_table()
-
+def insert_benchmark(cur, conn, board_hash, solve_time, num_moves):
     try:
         cur.execute('''
         INSERT INTO board_benchmarks (board_hash, solve_time, num_moves)
@@ -51,13 +49,13 @@ def insert_benchmark(board_hash, solve_time, num_moves):
 def get_board_data():
     cur, conn = create_table()
 
-    for _ in range(1):
+    for _ in range(10):
         dice = tuple([random.randint(-50, 50) for _ in range(6)])
         board = rev_e.create_board(5, 0, 0, dice)
         data = benchmark_solver(board)
         insert_benchmark(cur, conn, data['board_hash'], data['solve_time'], data['num_moves'])
     
-    cur.execute('SELECT * FROM board_benchmarks ORDER BY solve_time ASC LIMIT 5')
+    cur.execute('SELECT * FROM board_benchmarks ORDER BY solve_time ASC')
     for row in cur.fetchall():
         print(row)
     
