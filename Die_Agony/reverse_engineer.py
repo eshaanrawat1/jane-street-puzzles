@@ -47,6 +47,14 @@ def normalize():
                 board[i][j] = random.randint(-750, 750)
 
 
+def stringify_board():
+    res = []
+    for row in board:
+        str_row = '_'.join(x for x in row)
+        res.append(str_row)
+    return '_'.join(res)
+
+
 def print_board():
     for row in board:
         print(row)
@@ -58,3 +66,4 @@ if __name__ == "__main__":
     path = create_board(5, 0, 1, dice)
     normalize()
     print_board()
+    print(stringify_board())
