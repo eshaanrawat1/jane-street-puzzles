@@ -4,11 +4,8 @@ import die_agony as da
 N = 6
 GOAL = (0, N-1)
 
-board = [[None] * N for _ in range(N)]
-board[N-1][0] = 0
 
-
-def get_cell_score(nr, nc, dice, move_num, old_score):
+def get_cell_score(board, nr, nc, dice, move_num, old_score):
     top = dice[0]
     new_score = top * move_num + old_score
 
@@ -16,7 +13,9 @@ def get_cell_score(nr, nc, dice, move_num, old_score):
 
 
 def create_board(r, c, move_num, dice):
-    path = []
+    board = [[None] * N for _ in range(N)]
+    board[N-1][0] = 0
+
 
     while (r, c) != GOAL:
         dirs = []
@@ -34,20 +33,20 @@ def create_board(r, c, move_num, dice):
         r, c = nr, nc
         move_num += 1
 
-        get_cell_score(nr, nc, dice, move_num, old_score)
+        get_cell_score(board, nr, nc, dice, move_num, old_score)
+    
+    normalize(board)
+    return board
 
-        path.append((r, c))
-    return path
 
-
-def normalize():
+def normalize(board):
     for i in range(N):
         for j in range(N):
             if board[i][j] is None:
                 board[i][j] = random.randint(-750, 750)
 
 
-def stringify_board():
+def stringify_board(board):
     res = []
     for row in board:
         str_row = '_'.join(str(x) for x in row)
@@ -55,14 +54,6 @@ def stringify_board():
     return '_'.join(res)
 
 
-def print_board():
+def print_board(board):
     for row in board:
         print(row)
-
-
-
-if __name__ == "__main__":
-    dice = (5, 16, -8, 20, 18, 1)
-    path = create_board(5, 0, 1, dice)
-    normalize()
-    print(stringify_board())
