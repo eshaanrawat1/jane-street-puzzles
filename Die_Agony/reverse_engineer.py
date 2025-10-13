@@ -50,7 +50,7 @@ def normalize():
 def stringify_board():
     res = []
     for row in board:
-        str_row = '_'.join(x for x in row)
+        str_row = '_'.join(str(x) for x in row)
         res.append(str_row)
     return '_'.join(res)
 
@@ -65,5 +65,4 @@ if __name__ == "__main__":
     dice = (5, 16, -8, 20, 18, 1)
     path = create_board(5, 0, 1, dice)
     normalize()
-    print_board()
     print(stringify_board())
